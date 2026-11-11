@@ -1,0 +1,298 @@
+
+/* =====================================
+   GLOBAL RESET
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0c0e14;
+    --surface: #151925;
+    --surface-light: #1e2432;
+    --border: #292f40;
+    --text: #f5f6fa;
+    --muted: #9299aa;
+    --accent: #ded1fd;
+    --accent-hover: #e1d8fa;
+}
+
+/* =====================================
+   BODY
+===================================== */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: clamp(20px, 4vw, 50px);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(139, 92, 246, 0.15),
+            transparent 45%
+        ),
+        var(--bg);
+
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+    color: var(--text);
+}
+
+/* =====================================
+   HEADINGS
+===================================== */
+
+h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: clamp(6px, 1vw, 10px);
+}
+
+h1 span {
+    color: var(--accent);
+}
+
+p {
+    color: var(--muted);
+    font-size: clamp(12px, 1.5vw, 14px);
+}
+
+/* =====================================
+   PIXEL CANVAS
+===================================== */
+
+#canvas {
+    display: grid;
+
+    grid-template-columns: repeat(80, minmax(0, 1fr));
+    grid-template-rows: repeat(80, minmax(0, 1fr));
+
+    width: min(90vw, 800px);
+    aspect-ratio: 1 / 1;
+
+    margin: clamp(15px, 3vw, 25px) auto;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    overflow: hidden;
+
+    touch-action: none;
+    user-select: none;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(139, 92, 246, 0.05);
+}
+
+/* =====================================
+   INDIVIDUAL PIXELS
+===================================== */
+
+.pixel {
+    background-color: #ffffff;
+
+    border: 0.2px solid #ffffff;
+
+    min-width: 0;
+    min-height: 0;
+
+    cursor: crosshair;
+}
+
+.pixel:hover {
+    outline: 1px solid rgba(38, 11, 97, 0.5);
+    z-index: 1;
+}
+
+/* =====================================
+   COLOR PICKER
+===================================== */
+
+#inp-c {
+    width: clamp(36px, 5vw, 48px);
+    height: clamp(36px, 5vw, 48px);
+
+    padding: 2px;
+
+    border: 2px solid var(--border);
+    border-radius: 50%;
+
+    background: var(--surface-light);
+
+    cursor: pointer;
+    overflow: hidden;
+
+    transition: 0.2s ease;
+}
+
+#inp-c:hover {
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+#inp-c::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#inp-c::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+/* =====================================
+   BUTTON
+===================================== */
+
+button {
+    padding: clamp(5px, 1.5vw, 3px)
+             clamp(16px, 2.5vw, 14px);
+
+    margin: clamp(8px, 4vw, 20px);
+
+    background: linear-gradient(
+        135deg,
+        #921010,
+        #701919
+    );
+
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: clamp(12px, 1.5vw, 14px);
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    box-shadow:
+        0 5px 18px rgba(82, 10, 15, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(
+        135deg,
+        #f82a2a,
+        #4b0f0f
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(41, 18, 23, 0.35);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =====================================
+   FOCUS STATES
+===================================== */
+
+button:focus-visible,
+#inp-c:focus-visible {
+    outline: 2px solid var(--accent-hover);
+    outline-offset: 4px;
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 24px 4vw;
+        align-items: flex-start;
+    }
+
+    #canvas {
+        width: 100%;
+        margin: 18px auto;
+    }
+
+    button {
+        margin: 12px 0;
+    }
+
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 20px 4vw;
+    }
+
+    h1 {
+        font-size: clamp(1.7rem, 8vw, 2rem);
+        letter-spacing: -1px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    #canvas {
+        width: 100%;
+        margin: 15px auto;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 11px 18px;
+        margin: 10px 0;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    #inp-c {
+        width: 38px;
+        height: 38px;
+    }
+
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 360px) {
+
+    body {
+        padding: 16px 3vw;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    #canvas {
+        margin: 12px auto;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 11px;
+        margin: 8px 0;
+    }
+
+}
